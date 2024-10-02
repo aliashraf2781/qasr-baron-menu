@@ -17,11 +17,6 @@ body{
     overflow-x: hidden;
 }
 
-.container{
-    max-width: 85%;
-    margin: 0 auto;
-    padding: 0 20px;
-}
 
 .header-text{
 h1{
@@ -90,6 +85,7 @@ p{
 }
 
 .card-category{
+    max-width: 300px;
     font-family: "Lemonada", cursive;
     overflow: hidden;
     cursor: pointer;

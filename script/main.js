@@ -527,7 +527,7 @@ categoryButtons.forEach(button => {
 // Function to display categories with lazy-loaded images
 function displayCategory(items) {
     const foodMarkup = items.map(item => `
-        <div class="card card-category rounded-top-4 col-sm-6 col-md-6 col-lg-3 border-0 bg-transparent ${item.second_title}">
+        <div class="card card-category rounded-top-4 col-md-4 col-sm-6 col-lg-3 border-0 bg-transparent ${item.second_title}">
             <div class="card-img-top">
                 <img data-src="${item.img}" alt="${item.title}" class="card-img lazy-load shadow-sm rounded-top-4 rounded-bottom-0 " >
             </div>
