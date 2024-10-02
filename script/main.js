@@ -545,7 +545,7 @@ function displayItems(items) {
     categoriesContainer.innerHTML=``;
     items.forEach(item => {
         const card = document.createElement('div');
-        card.classList.add('card-item' ,'col-md-6' ,'col-lg-4' , item.second_title);
+        card.classList.add('card-item' ,'col-md-6' ,'col-lg-4' , item.englishName);
         card.innerHTML = `
             <div class="bg-white p-3 shadow-sm rounded-4 d-flex align-items-start justify-content-between ">
                 <p class="m-0 fw-lighter">${item.name} <br> ${item.englishName} </p>
