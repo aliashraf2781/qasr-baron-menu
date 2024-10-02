@@ -547,7 +547,7 @@ function displayItems(items) {
         const card = document.createElement('div');
         card.classList.add('card-item' ,'col-md-6' ,'col-lg-4' , item.second_title);
         card.innerHTML = `
-            <div class="bg-white p-4 shadow-sm rounded-4 d-flex align-items-start justify-content-between ">
+            <div class="bg-white p-3 shadow-sm rounded-4 d-flex align-items-start justify-content-between ">
                 <p class="m-0 fw-lighter">${item.name} <br> ${item.englishName} </p>
                 <p class="m-0 item-price fw-bolder">${item.price} EGP</p>
             </div>
