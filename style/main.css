@@ -5,6 +5,7 @@
 *{
     box-sizing: border-box;
     transition: all 0.1s ease-in-out;
+    /* overflow-x: hidden; */
 }
 
 body{
@@ -13,6 +14,13 @@ body{
     background-image: linear-gradient( 20deg,rgb(30,67,75) 0%, rgba(30,67,75) 50%, rgba(255,255,255) 20%, rgba(255,255,255) 80%);
     background-size: cover;
     background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+.container{
+    max-width: 85%;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .header-text{
@@ -28,6 +36,12 @@ p{
 }
 }
 
+.lazy-load{
+    background-color: white;
+    background-size: cover;
+    background-repeat: repeat;
+}
+
 .social-icon{
     font-size: 1.5rem;
     color: rgb(30,67,75);
@@ -39,6 +53,7 @@ p{
 
 .img-parent{
     width: 90px;
+    height: 90px;
 }
 
 
@@ -74,12 +89,33 @@ p{
     }
 }
 
-.card{
-    max-width: 300px;
+.card-category{
     font-family: "Lemonada", cursive;
-    font-size: 1.5rem;
     overflow: hidden;
-    color:  goldenrod;
+    cursor: pointer;
+    transition: scale 0.5s;
+    color: rgb(30,67,75);
+}
+
+.card-category:hover{
+    scale: 1.01;
+    color: goldenrod;
+}
+
+.card-item{
+    div{
+        font-family: "Lemonada", cursive;
+        font-size: 0.9rem;
+        color: rgb(30,67,75);
+        font-weight: 600;
+        border-radius: 20px;
+        border: 3px solid #dbd9d9;
+        cursor: pointer;
+    }
+}
+
+.card-item div:hover{
+    border: 3px solid goldenrod;
 }
 
 .back-button{
@@ -103,7 +139,21 @@ p{
     color: rgb(30,67,75);
     box-shadow: 0 0 2px goldenrod;
     a{
-        color: goldenrod;
-    
+        color: goldenrod
     }
+}
+
+.table{
+    font-family: "Amiri", serif;
+    color: goldenrod;
+    backdrop-filter: blur(5px);
+    border: 2px solid goldenrod;
+    tr{
+        td{
+            /* color: goldenrod; */
+            color: white;
+            background-color: rgba(254, 247, 213, 0.121) !important;
+        }
+    }
+
 }
