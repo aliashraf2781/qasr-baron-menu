@@ -1,7 +1,3 @@
-const categoryEastern = document.querySelector('.eastern');
-const categoryWestern = document.querySelector('.western');
-const categoryBakery = document.querySelector('.bakery');
-const categoryChocolate = document.querySelector('.chocolates');
 
 
  ////////////////////////////////////
@@ -498,104 +494,88 @@ const basbosa = [
     { name: "فورمة بقلاوة مكسرات (سعر الكيلو)", price: 355, englishName: "Nuts Baklava Form (per kg)" },
     { name: "فورمة بقلاوة سوري (سعر الكيلو)", price: 355, englishName: "Syrian Baklava Form (per kg)" },
     { name: "فورمة كنافة سوري (سعر الكيلو)", price: 330, englishName: "Syrian Konafa Form (per kg)" },
-  ]
-  
-  const boxAndMix = [
+]
+
+const boxAndMix = [
     { name: "1 كيلو شرقي", price: 250, englishName: "1 Kg Oriental Sweets" },
     { name: "1 كيلو شرقي", price: 350, englishName: "1 Kg Oriental Sweets" },
     { name: "1 كيلو شرقي", price: 450, englishName: "1 Kg Oriental Sweets" },
     { name: "1 كيلو شرقي", price: 550, englishName: "1 Kg Oriental Sweets" }
-  ];
+];
 
-  
+
 ///////////////////////
 // نهاية الشرقي
 //////////////////////
-
-// Select elements
+const categoryEastern = document.querySelector('.eastern');
+const categoryWestern = document.querySelector('.western');
+const categoryBakery = document.querySelector('.bakery');
+const categoryChocolate = document.querySelector('.chocolates');
 const categoriesContainer = document.querySelector('.categories');
 const categoryButtons = document.querySelectorAll('.category');
-const backButton = document.querySelector('.back-button'); 
+const backButton = document.querySelector('.back-button');
 
-// Show back button when category is clicked
-categoryButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        backButton.classList.remove('d-none');
-    });
+// Show loading screen
+function showLoading() {
+    document.getElementById('loading-screen').classList.remove('d-none');
+}
+
+function hideLoading() {
+    document.getElementById('loading-screen').classList.add('d-none');
+}
+
+// Initial loading
+document.addEventListener('DOMContentLoaded', () => {
+    showLoading();
+    // Simulate loading time
+    setTimeout(() => {
+        hideLoading();
+    }, 3000);
 });
 
 // Function to display categories with lazy-loaded images
 function displayCategory(items) {
-    const foodMarkup = items.map(item => `
-        <div class="card card-category rounded-top-4 col-md-4 col-sm-6 col-lg-3 border-0 bg-transparent ${item.second_title}">
-            <div class="card-img-top">
-                <img data-src="${item.img}" alt="${item.title}" class="card-img lazy-load shadow-sm rounded-top-4 rounded-bottom-0 " >
+    showLoading(); // Show loading when displaying categories
+    setTimeout(() => {
+        const foodMarkup = items.map(item => `
+            <div class="card-category rounded-top-4 col-md-4 col-sm-6 col-lg-3 border-0 bg-transparent ${item.second_title}">
+                <div class="card-img-top">
+                    <img src="${item.img}" alt="${item.title}" class="card-img lazy-load shadow-sm rounded-top-4 rounded-bottom-0">
+                </div>
+                <div class="rounded-bottom-4 p-3 shadow-sm bg-white d-flex text-center justify-content-center flex-column border border-2 border-top-0">
+                    <h3 class="fs-5">${item.title}</h3>
+                </div>
             </div>
-            <div class="card-body rounded-bottom-4 shadow-sm bg-white d-flex text-center justify-content-center flex-column border border-2 border-top-0">
-                <h3 class="card-text fs-5">${item.title}</h3>
-            </div>
-        </div>
-    `).join('');
+        `).join('');
 
-    categoriesContainer.innerHTML = foodMarkup;
-    lazyLoadImages();
+        categoriesContainer.innerHTML = foodMarkup;
+        hideLoading();
+        setupItemListeners(); // Set up item click listeners
+    }, 1000); // 2 seconds loading time
 }
 
+// Function to display items
 function displayItems(items) {
-    categoriesContainer.innerHTML=``;
-    items.forEach(item => {
-        const card = document.createElement('div');
-        card.classList.add('card-item' ,'col-md-6' ,'col-lg-4' );
-        card.innerHTML = `
-            <div class="bg-white p-3 shadow-sm rounded-4 d-flex align-items-start justify-content-between ">
-                <p class="m-0 fw-lighter">${item.name} <br> ${item.englishName} </p>
-                <p class="m-0 item-price fw-bolder">${item.price} EGP</p>
-            </div>
-        `;
-        categoriesContainer.appendChild(card);
-    });
-}
-
-
-// Lazy load images
-function lazyLoadImages() {
-    const images = document.querySelectorAll('.lazy-load');
-
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src; // Load the actual image
-                img.classList.remove('lazy-load'); // Remove class to prevent re-observing
-                observer.unobserve(img); // Stop observing
-            }
+    showLoading(); // Show loading when displaying items
+    setTimeout(() => {
+        categoriesContainer.innerHTML = ``;
+        items.forEach(item => {
+            const card = document.createElement('div');
+            card.classList.add('card-item', 'col-md-6', 'col-lg-4');
+            card.innerHTML = `
+                <div class="bg-white p-3 shadow-sm rounded-4 d-flex align-items-start justify-content-between">
+                    <p class="m-0 fw-lighter">${item.name} <br> ${item.englishName}</p>
+                    <p class="m-0 item-price fw-bolder">${item.price} EGP</p>
+                </div>
+            `;
+            categoriesContainer.appendChild(card);
         });
-    }, options);
-
-    images.forEach(img => {
-        imageObserver.observe(img);
-    });
+        hideLoading();
+    }, 1000); // 2 seconds loading time
 }
 
-// Event listeners for categories
-categoryEastern.addEventListener('click', () => displayItems(eastern));
-
-function addClickListener(cardClass, item) {
-    const card = document.querySelector(cardClass);
-    if (card) {
-        card.addEventListener('click', () => displayItems(item));
-    }
-}
-
-// Western category click event
-categoryWestern.addEventListener('click', () => {
-    displayCategory(western);
+// Function to set up item listeners for the subcategories
+function setupItemListeners() {
     const westernItems = [
         { class: '.eclair', item: eclair },
         { class: '.englishCake', item: englishCake },
@@ -616,12 +596,16 @@ categoryWestern.addEventListener('click', () => {
         { class: '.dessertPieces', item: dessertPieces },
         { class: '.gateauxSoiree', item: gateauxSoiree }
     ];
-    westernItems.forEach(({ class: cardClass, item }) => addClickListener(cardClass, item));
-});
 
-// Bakery category click event
-categoryBakery.addEventListener('click', () => {
-    displayCategory(bakeries);
+    westernItems.forEach(({ class: cardClass, item }) => {
+        const card = document.querySelector(cardClass);
+        if (card) {
+            card.addEventListener('click', () => {
+                displayItems(item);
+            });
+        }
+    });
+
     const bakeryItems = [
         { class: '.breakfast', item: breakfast },
         { class: '.salison', item: salison },
@@ -632,24 +616,32 @@ categoryBakery.addEventListener('click', () => {
         { class: '.donutsAndCinnabon', item: donutsAndCinnabon },
         { class: '.bakery', item: bakery }
     ];
-    bakeryItems.forEach(({ class: cardClass, item }) => addClickListener(cardClass, item));
-});
 
-// Chocolate category click event
-categoryChocolate.addEventListener('click', () => {
-    displayCategory(chocolateAndIceCream);
+    bakeryItems.forEach(({ class: cardClass, item }) => {
+        const card = document.querySelector(cardClass);
+        if (card) {
+            card.addEventListener('click', () => {
+                displayItems(item);
+            });
+        }
+    });
+
     const chocolateItems = [
         { class: '.iceCream', item: iceCream },
         { class: '.iceCreamTorte', item: iceCreamTorte },
         { class: '.chocolate', item: chocolate },
         { class: '.saltedNuts', item: saltedNuts }
     ];
-    chocolateItems.forEach(({ class: cardClass, item }) => addClickListener(cardClass, item));
-});
 
-// Eastern category click event
-categoryEastern.addEventListener('click', () => {
-    displayCategory(eastern);
+    chocolateItems.forEach(({ class: cardClass, item }) => {
+        const card = document.querySelector(cardClass);
+        if (card) {
+            card.addEventListener('click', () => {
+                displayItems(item);
+            });
+        }
+    });
+
     const easternItems = [
         { class: '.basbosa', item: basbosa },
         { class: '.baklava', item: baklava },
@@ -659,5 +651,19 @@ categoryEastern.addEventListener('click', () => {
         { class: '.boxAndMix', item: boxAndMix },
         { class: '.form', item: form }
     ];
-    easternItems.forEach(({ class: cardClass, item }) => addClickListener(cardClass, item));
-});
+
+    easternItems.forEach(({ class: cardClass, item }) => {
+        const card = document.querySelector(cardClass);
+        if (card) {
+            card.addEventListener('click', () => {
+                displayItems(item);
+            });
+        }
+    });
+}
+
+// Event listeners for categories
+categoryEastern.addEventListener('click', () => displayCategory(eastern));
+categoryWestern.addEventListener('click', () => displayCategory(western));
+categoryBakery.addEventListener('click', () => displayCategory(bakeries));
+categoryChocolate.addEventListener('click', () => displayCategory(chocolateAndIceCream));
